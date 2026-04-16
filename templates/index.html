@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Кулинарен Асистент</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+        }
+
+        .card {
+            border-radius: 15px;
+        }
+
+        h1 {
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background-color: #ff6b6b;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #ff4b4b;
+        }
+
+        img {
+            max-height: 200px;
+            object-fit: cover;
+        }
+
+        /* Loading overlay */
+        #loading {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.8);
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            z-index: 9999;
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+
+    <!-- 🔥 Loading overlay -->
+    <div id="loading">
+        ⏳ AI мисли...
+    </div>
+
+    <div class="container py-5">
+        <h1 class="text-center mb-4">🍽️ Какво има в хладилника?</h1>
+
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow p-4">
+
+                    <form method="POST" enctype="multipart/form-data"
+                          onsubmit="showLoading(); this.querySelector('button').disabled = true;">
+
+                        <div class="mb-3">
+                            <label class="form-label">Снимай продуктите:</label>
+                            <input type="file" name="image" class="form-control" accept="image/*" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Допълнителни изисквания (незадължително):</label>
+                            <input type="text" name="prompt" class="form-control"
+                                   placeholder="Напр: Искам здравословна рецепта около 500 калории">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">
+                            Генерирай рецепта
+                        </button>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        {% if result %}
+        <div class="row mt-5">
+            <div class="col-md-8 offset-md-2">
+                <div class="card p-4">
+                    <h3>🍳 Предложение от AI:</h3>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="{{ image_path }}" class="img-fluid rounded shadow-sm">
+                        </div>
+
+                        <div class="col-md-8">
+                            <p class="lead" style="white-space: pre-wrap;">{{ result }}</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        function showLoading() {
+            document.getElementById("loading").style.display = "flex";
+        }
+    </script>
+
+</body>
+</html>
