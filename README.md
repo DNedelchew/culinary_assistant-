@@ -37,8 +37,9 @@
    ```bash
    python -m venv .venv
 source .venv/bin/activate  # За Mac
-# .venv\Scripts\activate   # За Windows
+.venv\Scripts\activate   # За Windows
 3.**Инсталиране на пакети:**
+      ```bash
 Конфигурация на API
 Създайте файл .env в главната папка и добавете:
 
